@@ -1,6 +1,25 @@
 import mongoose, { Schema } from "mongoose";
+import bcrypt from "bcrypt";
 
 const schema = new Schema({
+  name: {
+    type: String,
+    required: true,
+    lowercase: true,
+  },
+  lastName: {
+    type: String,
+    required: true,
+    lowercase: true,
+  },
+  cep: {
+    type: Number,
+    required: true,
+  },
+  address: {
+    type: String,
+    required: true,
+  },
   email: {
     type: String,
     required: true,
@@ -14,11 +33,16 @@ const schema = new Schema({
   },
   admin: {
     type: Boolean,
-    default: false
+    default: false,
   },
   id: {
     type: String,
-  }
+  },
 });
 
-export default mongoose.model("User", schema)
+schema.pre("save", async function (next) {
+  this.password = await bcrypt.hash(this.password, 12);
+  next();
+});
+
+export default mongoose.model("User", schema);

@@ -6,13 +6,12 @@ import mongoose from "mongoose";
 
 const app = express();
 
-mongoose.connect(`${process.env.MONGO_CONNECTION_URI}`, (error) => {
+mongoose.connect(process.env.MONGO_CONNECTION_URI, (error) => {
   if (!error) console.log("Successfully connected to mongoDB. 🍃");
   else console.log(error);
 });
 
 app.use("/user", userRouter);
-
 
 app.listen(process.env.PORT, () => {
   console.log(`⚡ Server running on ${process.env.PORT} port.`);
