@@ -11,6 +11,9 @@ mongoose.connect(process.env.MONGO_CONNECTION_URI, (error) => {
   else console.log(error);
 });
 
+app.get('/', (req, res) => {
+  res.send("Something (get)")
+})
 app.use("/user", userRouter);
 
 app.listen(process.env.PORT, () => {
