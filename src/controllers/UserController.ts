@@ -2,6 +2,9 @@ import { Request, Response } from "express";
 import User from "../model/User";
 import { v4 as uuidv4 } from "uuid";
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
+// import * as dotenv from "dotenv";
+// dotenv.config();
 
 class UserController {
   async register(req: Request, res: Response) {
@@ -33,13 +36,15 @@ class UserController {
     
     if(retrievedUser){
       if(await bcrypt.compare(req.body.password, retrievedUser!.password)) {
+       const token = jwt.sign({id: retrievedUser?.id, admin: retrievedUser.admin }, process.env.TOKEN_SECRET)
+
+       res.header('authorization-token', token)   
        res.status(200).send("User validated.")
+      
       } else res.status(401).send("Email or password incorrect.") 
     } else {
       res.status(404).send("User not found")
     }
-    
-    
   }
 }
 
