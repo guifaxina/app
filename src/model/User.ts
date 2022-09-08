@@ -15,6 +15,8 @@ const schema = new Schema({
   cep: {
     type: Number,
     required: true,
+    minLength: 8,
+    maxLength: 8,
   },
   address: {
     type: String,
