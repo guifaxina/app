@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from "express";
 
 
 function auth(req: Request, res: Response, next: NextFunction) {
-  const token = req.header("authorization-token");
+  const token = req.header("authorization");
   if (!token) res.status(401).send("Access Denied.");
 
   try {

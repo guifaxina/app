@@ -32,13 +32,17 @@ class UserController {
 
   async login(req: Request, res: Response) {
     let retrievedUser = await User.findOne({ email: req.body.email })
-    
+
     if(retrievedUser){
       if(await bcrypt.compare(req.body.password, retrievedUser!.password)) {
-       const token = jwt.sign({id: retrievedUser?.id, admin: retrievedUser.admin }, process.env.TOKEN_SECRET)
-
-       res.header('authorization-token', token)   
-       res.status(200).send("User validated.")
+       
+      const token = jwt.sign({id: retrievedUser?.id, admin: retrievedUser.admin, name: retrievedUser.name }, process.env.TOKEN_SECRET)
+      const isAdmin = String(retrievedUser.admin);
+    
+      res.header('name', retrievedUser.name)
+      res.header('isadmin', isAdmin)
+      res.header('authorization', token)   
+      res.status(200).send("User validated.")
       
       } else res.status(401).send("Email or password incorrect.") 
     } else {
