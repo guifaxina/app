@@ -9,6 +9,7 @@ class ProductsController {
       name: req.body.name,
       price: req.body.price,
       inventory: req.body.inventory,
+      link: req.body.link,
       id: uuidv4()
     })
 
@@ -21,7 +22,7 @@ class ProductsController {
     });
   } 
 
-  async getAll(req, res) {
+  async getAll(req: Request, res: Response) {
     const allProducts = await Product.find({})
     res.send(JSON.stringify(allProducts));
   }

@@ -15,6 +15,9 @@ const schema = new Schema({
   inventory: {
     type: Number,
     required: true
+  },
+  link: {
+    type: String
   }
 })
 
