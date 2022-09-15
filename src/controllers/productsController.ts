@@ -26,6 +26,8 @@ class ProductsController {
     const allProducts = await Product.find({})
     res.send(JSON.stringify(allProducts));
   }
+
+  
 }
 
 export default new ProductsController()
