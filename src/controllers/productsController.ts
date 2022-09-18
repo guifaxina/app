@@ -27,7 +27,12 @@ class ProductsController {
     res.send(JSON.stringify(allProducts));
   }
 
-  
-}
+  async selectProduct(req: Request, res: Response) {
+    const productSelected = await Product.find({ id: req.header("id") })
+    if (productSelected) {
+      res.send(productSelected)
+    }
+  }
+};
 
 export default new ProductsController()

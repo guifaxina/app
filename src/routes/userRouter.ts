@@ -8,8 +8,8 @@ router.use(express.json());
 router.post("/register", UserController.register);
 router.post("/login", UserController.login);
 
+router.get('/select-product', ProductsController.selectProduct)
 router.get("/get-products", ProductsController.getAll)
-
 
 export default router;
 
