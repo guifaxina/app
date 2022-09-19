@@ -5,6 +5,7 @@ import { Request, Response } from 'express';
 
 class ProductsController {
    newProduct(req: Request, res: Response) {  
+    console.log(req.body);
     const newProduct = new Product({
       name: req.body.name,
       price: req.body.price,
@@ -32,6 +33,19 @@ class ProductsController {
     if (productSelected) {
       res.send(productSelected)
     }
+  }
+
+  async buy(req: Request, res: Response ) {
+
+    const product = await Product.findOne({ id: req.body.id })
+    await Product.updateOne({ id: req.body.id }, {
+      inventory: product!.inventory - req.body.units
+    })
+
+    const doc = await Product.findOne({ id: req.body.id })
+    console.log(doc!.inventory);
+    
+    res.sendStatus(200)
   }
 };
 
