@@ -35,19 +35,24 @@ class UserController {
 
     if(retrievedUser){
       if(await bcrypt.compare(req.body.password, retrievedUser!.password)) {
-       
-      const token = jwt.sign({id: retrievedUser?.id, admin: retrievedUser.admin, name: retrievedUser.name }, process.env.TOKEN_SECRET)
-      const isAdmin = String(retrievedUser.admin);
-    
-      res.header('name', retrievedUser.name)
-      res.header('isadmin', isAdmin)
-      res.header('authorization', token)   
-      res.status(200).send("User validated.")
+        const token = jwt.sign({id: retrievedUser?.id, admin: retrievedUser.admin, name: retrievedUser.name }, process.env.TOKEN_SECRET)
+        const isAdmin = String(retrievedUser.admin);
+      
+        res.header('name', retrievedUser.name)
+        res.header('isadmin', isAdmin)
+        res.header('authorization', token)   
+        res.status(200).send("User validated.")
       
       } else res.status(401).send("Email or password incorrect.") 
     } else {
       res.status(404).send("User not found")
     }
+  }
+
+  async returnUserData(req: Request, res: Response) {
+    const token = req.header("authorization")
+    const userChecked = await jwt.verify(token!, process.env.TOKEN_SECRET);    
+    res.json(userChecked)
   }
 }
 

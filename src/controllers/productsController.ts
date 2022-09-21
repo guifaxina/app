@@ -40,11 +40,8 @@ class ProductsController {
     const product = await Product.findOne({ id: req.body.id })
     await Product.updateOne({ id: req.body.id }, {
       inventory: product!.inventory - req.body.units
-    })
+    });
 
-    const doc = await Product.findOne({ id: req.body.id })
-    console.log(doc!.inventory);
-    
     res.sendStatus(200)
   }
 };
