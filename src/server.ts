@@ -8,7 +8,7 @@ import cors from 'cors'
 const app = express();
 
 app.use(cors({
-  origin:'http://127.0.0.1:5173',
+  origin: ['http://localhost:4173', 'http://localhost:5173'],
   exposedHeaders: ['authorization', 'isadmin', 'name']
 })
 )
@@ -16,15 +16,10 @@ app.use(cors({
 mongoose.connect(process.env.MONGO_CONNECTION_URI, (error) => {
   if (!error) console.log("Successfully connected to mongoDB. 🍃");
   else console.log(error);
-});
-
-app.get('/', (req, res) => {
-  res.send("Something (get)")
-})
-
+}); 
 
 app.use("/user", userRouter);
-app.use('/admin', adminRouter);
+app.use("/admin", adminRouter);
 
 
 app.listen(process.env.PORT, () => {
