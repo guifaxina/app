@@ -1,5 +1,5 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction, json } from "express";
 
 
 function auth(req: Request, res: Response, next: NextFunction) {

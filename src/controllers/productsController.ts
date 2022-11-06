@@ -5,7 +5,6 @@ import { Request, Response } from 'express';
 
 class ProductsController {
    newProduct(req: Request, res: Response) {  
-    console.log(req.body);
     const newProduct = new Product({
       name: req.body.name,
       price: req.body.price,
