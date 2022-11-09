@@ -13,7 +13,7 @@ app.use(cors({
 })
 )
 
-mongoose.connect(process.env.MONGO_CONNECTION_URI, (error) => {
+mongoose.connect(`${process.env.MONGO_CONNECTION_URI}`, (error) => {
   if (!error) console.log("Successfully connected to mongoDB. 🍃");
   else console.log(error);
 }); 
