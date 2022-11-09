@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from "uuid";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
-
 class UserController {
   async register(req: Request, res: Response) {
     const newUser = new User({
@@ -28,7 +27,7 @@ class UserController {
     
     newUser.save((error) => {
       if (!error) {
-        const token = jwt.sign({id: newUser?.id, admin: newUser!.admin, name: newUser!.name },process.env.TOKEN_SECRET)
+        const token = jwt.sign({id: newUser!.id, admin: newUser!.admin, name: newUser!.name },process.env.TOKEN_SECRET)
         
         res.header('authorization', token)
         res.status(201).json({ status: 'success', message: 'User registered.' });;
@@ -48,11 +47,11 @@ class UserController {
         const token = jwt.sign({id: retrievedUser?.id, admin: retrievedUser.admin, name: retrievedUser.name }, process.env.TOKEN_SECRET)
       
         res.header('authorization', token)   
-        res.status(200).json({ status: 'success', message: 'User Validated' })
+        res.status(200).json({ status: 'success', message: 'User Validated.' })
       
       } else res.status(401).json({ status: 'failed', message: 'Email or password incorrect.'})
     } else {
-      res.status(404).json({ status: 'error', message: 'User not found' })
+      res.status(404).json({ status: 'error', message: 'User not found.' })
     }
   }
 
