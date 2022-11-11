@@ -10,7 +10,7 @@ import winston from 'winston';
 import expressWinston from 'express-winston'
 
 app.use(cors({
-  origin: ['http://localhost:4173', 'http://localhost:5173', "https://arketfy.netlify.app/"],
+  origin: ['http://localhost:4173', 'http://localhost:5173', "https://arketfy.netlify.app"],
   exposedHeaders: ['authorization', 'isadmin', 'name']
 })
 )
