@@ -6,12 +6,25 @@ import mongoose from "mongoose";
 import adminRouter from './routes/adminRouter'
 import cors from 'cors'
 const app = express();
+import winston from 'winston';
+import expressWinston from 'express-winston'
 
 app.use(cors({
   origin: ['http://localhost:4173', 'http://localhost:5173'],
   exposedHeaders: ['authorization', 'isadmin', 'name']
 })
 )
+
+app.use(expressWinston.logger({
+  transports: [
+    new winston.transports.Console()
+  ],
+  format: winston.format.combine(
+    winston.format.colorize(),
+    winston.format.json()
+  ),
+  colorize: true,
+}))
 
 mongoose.connect(process.env.MONGO_CONNECTION_URI, (error) => {
   if (!error) console.log("Successfully connected to mongoDB. 🍃");
