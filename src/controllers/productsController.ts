@@ -1,6 +1,8 @@
-import Product from '../model/Product';
 import { v4 as uuidv4 } from 'uuid';
 import { Request, Response } from 'express';
+
+// Models
+import Product from '../model/Product';
 
 class ProductsController {
    newProduct(req: Request, res: Response) {  

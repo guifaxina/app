@@ -1,34 +1,29 @@
-import * as dotenv from "dotenv";
-dotenv.config();
+import dotenv from "dotenv";
 import express from "express";
-import userRouter from "./routes/userRouter";
 import mongoose from "mongoose";
-import adminRouter from './routes/adminRouter'
 import cors from 'cors'
+
+// Routes
+import adminRouter from './routes/adminRouter'
+import userRouter from "./routes/userRouter";
+
+// Utils
+import loggerHttp from "./utils/logger-http.utils";
+
+dotenv.config();
+
 const app = express();
-import winston from 'winston';
-import expressWinston from 'express-winston'
 
 app.use(cors({
   origin: ['http://localhost:4173', 'http://localhost:5173', "https://arketfy.netlify.app"],
   exposedHeaders: ['authorization', 'isadmin', 'name']
-})
-)
-
-app.use(expressWinston.logger({
-  transports: [
-    new winston.transports.Console()
-  ],
-  format: winston.format.combine(
-    winston.format.colorize(),
-    winston.format.json()
-  ),
-  colorize: true,
 }))
 
+app.use(loggerHttp)
+
 mongoose.connect(process.env.MONGO_CONNECTION_URI, (error) => {
-  if (!error) console.log("Successfully connected to mongoDB. 🍃");
-  else console.log(error);
+  if (error) console.log(error);
+  else console.log("Successfully connected to mongoDB. 🍃");
 }); 
 
 app.use("/user", userRouter);
