@@ -5,7 +5,7 @@ import { Request, Response } from 'express';
 import Product from '../model/Product';
 
 class ProductsController {
-   newProduct(req: Request, res: Response) {  
+   async newProduct(req: Request, res: Response) {  
     const newProduct = new Product({
       name: req.body.name,
       price: req.body.price,
@@ -14,13 +14,16 @@ class ProductsController {
       id: uuidv4()
     })
 
-    newProduct.save((error) => {
-      if (!error) res.status(200).json({ status: "success", message: "Product registered." });
-      else {
-        console.log(error);
-        res.status(400).json({ status: "failed", message: "Failed to register product." });
-      }
-    });
+    try {
+      const productResponse = await newProduct.save();
+      
+      if (productResponse) res.status(201).json({ status: "success", message: "Product registered", data: productResponse })
+      else res.status(400).json({ status: "failed", message: "Failed to register product. Check if there is information missing." });
+    
+    } catch (error) {
+      console.log(error);
+      res.status(400).json({ status: "error", message: "Failed to register product." });
+    }
   } 
 
   async getAllProducts(_: Request, res: Response) {
