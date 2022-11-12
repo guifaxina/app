@@ -1,8 +1,10 @@
 import { Request, Response } from "express";
-import User from "../model/User";
 import { v4 as uuidv4 } from "uuid";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+
+// Models
+import User from "../model/User";
 
 class UserController {
   async register(req: Request, res: Response) {
