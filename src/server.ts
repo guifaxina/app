@@ -2,12 +2,13 @@ import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 import cors from 'cors'
-import winston from 'winston';
-import expressWinston from 'express-winston'
 
 // Routes
 import adminRouter from './routes/adminRouter'
 import userRouter from "./routes/userRouter";
+
+// Utils
+import loggerHttp from "./utils/logger-http.utils";
 
 dotenv.config();
 
@@ -18,16 +19,7 @@ app.use(cors({
   exposedHeaders: ['authorization', 'isadmin', 'name']
 }))
 
-app.use(expressWinston.logger({
-  transports: [
-    new winston.transports.Console()
-  ],
-  format: winston.format.combine(
-    winston.format.colorize(),
-    winston.format.json()
-  ),
-  colorize: true,
-}))
+app.use(loggerHttp)
 
 mongoose.connect(process.env.MONGO_CONNECTION_URI, (error) => {
   if (error) console.log(error);
