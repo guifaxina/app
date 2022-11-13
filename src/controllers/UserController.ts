@@ -21,10 +21,10 @@ class UserController {
     
     const userRegisterEmail = await User.findOne({ email: req.body.email })
     if (userRegisterEmail)
-      res.status(400).json({ status: 'failed', message: 'Email already in use.' });
+      return res.status(400).json({ status: 'failed', message: 'Email already in use.' });
     
     if (req.body.cep.length != 8) {
-      res.status(400).json({ status: 'failed', message: 'Cep must be eight numbers.' });
+      return res.status(400).json({ status: 'failed', message: 'Cep must be eight numbers.' });
     }
     
     newUser.save((error) => {
@@ -35,7 +35,7 @@ class UserController {
         res.status(201).json({ status: 'success', message: 'User registered.' });;
       }
       else {
-        console.log(error);
+        console.log(error.name); //ValidationError (password)
         res.status(400).json({ status: 'failed', message: 'Failed to register.' });
       }
     });
@@ -49,7 +49,7 @@ class UserController {
         const token = jwt.sign({id: retrievedUser?.id, admin: retrievedUser.admin, name: retrievedUser.name }, process.env.TOKEN_SECRET)
       
         res.header('authorization', token)   
-        res.status(200).json({ status: 'success', message: 'User Validated.' })
+        res.status(200).json({ status: 'success', message: 'User validated.' })
       
       } else res.status(401).json({ status: 'failed', message: 'Email or password incorrect.'})
     } else {
