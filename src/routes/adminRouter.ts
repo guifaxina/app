@@ -9,7 +9,7 @@ const router = express.Router();
 router.use(express.json());
 // router.use(auth)
 
-router.post("/add-new-product", auth, ProductsController.newProduct);
+router.post("/add-new-product", auth, ProductsController.createProduct);
 
 router.delete('/delete-product/:id', auth, ProductsController.deleteProduct)  
 
