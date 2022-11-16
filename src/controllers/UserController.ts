@@ -18,24 +18,23 @@ class UserController {
       admin: req.body.admin,
       id: uuidv4(),
     });
-
-    const userRegisterEmail = await User.findOne({ email: req.body.email })
-    if (userRegisterEmail)
-      return res.status(400).json({ status: 'failed', message: 'Email already in use.' });
-    
+    // This code iterates over the newUser object and returns an array of the input names that were not filled.
     const newUserData = Object.entries(newUser)[1][1] 
     const valuesOfUserData: any = [];
     Object.entries(newUserData).forEach(property => valuesOfUserData.push(property[1]))
-  
     const indexesOfEmptyInputs = valuesOfUserData.reduce(function(accumulator: [number], element: string, index: number) {
       if (element === '') accumulator.push(index);
       return accumulator;
     }, []);
-
+    
     const notFilledUserData = new Array();
     for (const values of indexesOfEmptyInputs) {
       notFilledUserData.push(Object.entries(newUserData)[values][0])
     }
+
+    const isThisEmailRegistered = await User.findOne({ email: req.body.email })
+    if (isThisEmailRegistered)
+      return res.status(400).json({ status: 'failed', message: 'Email already in use.' });
 
     if (notFilledUserData.length)
       return res.status(400).json({ status: 'failed', message: 'Some fields are not filled.', data: notFilledUserData })
