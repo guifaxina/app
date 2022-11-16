@@ -19,6 +19,10 @@ class UserController {
       id: uuidv4(),
     });
 
+    const userRegisterEmail = await User.findOne({ email: req.body.email })
+    if (userRegisterEmail)
+      return res.status(400).json({ status: 'failed', message: 'Email already in use.' });
+    
     const newUserData = Object.entries(newUser)[1][1] 
     const valuesOfUserData: any = [];
     Object.entries(newUserData).forEach(property => valuesOfUserData.push(property[1]))
@@ -28,16 +32,12 @@ class UserController {
       return accumulator;
     }, []);
 
-    const notFilledUserData = [];
+    const notFilledUserData = new Array();
     for (const values of indexesOfEmptyInputs) {
       notFilledUserData.push(Object.entries(newUserData)[values][0])
     }
 
-    const userRegisterEmail = await User.findOne({ email: req.body.email })
-    if (userRegisterEmail)
-      return res.status(400).json({ status: 'failed', message: 'Email already in use.' });
-
-    if (notFilledUserData) 
+    if (notFilledUserData.length)
       return res.status(400).json({ status: 'failed', message: 'Some fields are not filled.', data: notFilledUserData })
       
     if (req.body.cep.length != 8) 
