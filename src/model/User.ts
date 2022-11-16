@@ -13,7 +13,7 @@ const schema = new Schema({
     lowercase: true,
   },
   cep: {
-    type: Number,
+    type: String,
     required: true,
     minLength: 8,
     maxLength: 8,

@@ -18,14 +18,33 @@ class UserController {
       admin: req.body.admin,
       id: uuidv4(),
     });
-    
+
+    const newUserData = Object.entries(newUser)[1][1] 
+    const valuesOfUserData: any = [];
+    Object.entries(newUserData).forEach(property => valuesOfUserData.push(property[1]))
+  
+    const indexesOfEmptyInputs = valuesOfUserData.reduce(function(accumulator: [number], element: string, index: number) {
+      if (element === '') accumulator.push(index);
+      return accumulator;
+    }, []);
+
+    const notFilledUserData = [];
+    for (const values of indexesOfEmptyInputs) {
+      notFilledUserData.push(Object.entries(newUserData)[values][0])
+    }
+
     const userRegisterEmail = await User.findOne({ email: req.body.email })
     if (userRegisterEmail)
       return res.status(400).json({ status: 'failed', message: 'Email already in use.' });
-    
-    if (req.body.cep.length != 8) {
+
+    if (notFilledUserData) 
+      return res.status(400).json({ status: 'failed', message: 'Some fields are not filled.', data: notFilledUserData })
+      
+    if (req.body.cep.length != 8) 
       return res.status(400).json({ status: 'failed', message: 'Cep must be eight numbers.' });
-    }
+
+    if (req.body.password.length < 6) 
+      return res.status(400).json({ status: 'failed', message: "Password can't be less than 6 characters" });
     
     newUser.save((error) => {
       if (!error) {
@@ -35,7 +54,7 @@ class UserController {
         res.status(201).json({ status: 'success', message: 'User registered.' });;
       }
       else {
-        console.log(error.name); //ValidationError (password)
+        console.log(error.name); 
         res.status(400).json({ status: 'failed', message: 'Failed to register.' });
       }
     });
