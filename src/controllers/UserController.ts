@@ -29,7 +29,7 @@ class UserController {
     
     const notFilledUserData = new Array();
     for (const values of indexesOfEmptyInputs) {
-      notFilledUserData.push(Object.entries(newUserData)[values][0])
+      notFilledUserData.push(Object.entries(newUserData)[values][0] + " is required.")
     }
 
     const isThisEmailRegistered = await User.findOne({ email: req.body.email })
@@ -43,7 +43,7 @@ class UserController {
       return res.status(400).json({ status: 'failed', message: 'Cep must be eight numbers.' });
 
     if (req.body.password.length < 6) 
-      return res.status(400).json({ status: 'failed', message: "Password can't be less than 6 characters" });
+      return res.status(400).json({ status: 'failed', message: "Password can't be less than 6 characters." });
     
     newUser.save((error) => {
       if (!error) {
