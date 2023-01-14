@@ -32,6 +32,6 @@ app.use("/user", userRouter);
 app.use("/admin", adminRouter);
 
 
-app.listen(PORT || 3001, () => {
+app.listen(PORT, () => {
   console.log(`⚡ Server running on ${process.env.PORT} port.`);
 });
