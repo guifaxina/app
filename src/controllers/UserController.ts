@@ -30,14 +30,14 @@ class UserController {
     const notFilledUserData = new Array();
     for (const values of indexesOfEmptyInputs) {
       notFilledUserData.push(Object.entries(newUserData)[values][0] + " is required.")
-    }
+    };
 
     const isThisEmailRegistered = await User.findOne({ email: req.body.email })
     if (isThisEmailRegistered)
       return res.status(400).json({ status: 'failed', message: 'Email already in use.' });
 
     if (notFilledUserData.length)
-      return res.status(400).json({ status: 'failed', message: 'Some fields are not filled.', data: notFilledUserData })
+      return res.status(400).json({ status: 'failed', message: 'Some fields are not filled.', data: notFilledUserData });
       
     if (req.body.cep.length != 8) 
       return res.status(400).json({ status: 'failed', message: 'Cep must be eight numbers.' });
