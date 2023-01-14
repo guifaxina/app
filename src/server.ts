@@ -12,6 +12,8 @@ import loggerHttp from "./utils/logger-http.utils";
 
 dotenv.config();
 
+const PORT = process.env.PORT || 3001;
+
 const app = express();
 
 app.use(cors({
@@ -30,6 +32,6 @@ app.use("/user", userRouter);
 app.use("/admin", adminRouter);
 
 
-app.listen(process.env.PORT, () => {
+app.listen(PORT || 3001, () => {
   console.log(`⚡ Server running on ${process.env.PORT} port.`);
 });
