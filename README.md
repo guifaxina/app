@@ -25,20 +25,21 @@ The server will now be running on "http://localhost:3001"
 
 | Method | Endpoint | Description |
 | ------ | -------- | ----------- |
-| GET    | /user/user-data   | Retrieve user data |
-| GET    | /user/select-product | Retrieve the selected product |
-| GET    | /user/get-products | Retrieve all products |
-| PATCH  | /user/buy | Update the inventory |
-| POST   | /user/register | Create a new user |
-| POST   | /user/login | Sign in user |
-| POST   | /admin/add-new-product | Create new product |
-| DELETE | /admin/delete-product/:id | Delete product by id |
+| GET    | /user/user-data   | Retrieve user data. |
+| GET    | /user/select-product | Retrieve the selected product. |
+| GET    | /user/get-products | Retrieve all products. |
+| PATCH  | /user/buy | Update the inventory. |
+| POST   | /user/register | Create a new user. |
+| POST   | /user/login | Sign in user. |
+| POST   | /admin/add-new-product | Create new product. |
+| DELETE | /admin/delete-product/:id | Delete product by id. |
 
 ### Built with
-* [Node.js](https://nodejs.org/) 
-* [Express](https://expressjs.com/) 
-* [MongoDB](https://www.mongodb.com/)
-* [Docker](https://www.docker.com/)
+* TypeScript
+* NodeJS
+ * Express
+* MongoDB
+* Docker
 
 ### Author
 * [Guilherme Faxina](https://www.linkedin.com/in/guifaxina/)
