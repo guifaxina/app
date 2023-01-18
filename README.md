@@ -23,14 +23,19 @@ $ docker compose up && docker compose run -d
 The server will now be running on "http://localhost:3001"
 ### API Endpoints
 
+#### Customer
 | Method | Endpoint | Description |
 | ------ | -------- | ----------- |
 | GET    | /user/user-data   | Retrieve user data. |
 | GET    | /user/select-product | Retrieve the selected product. |
 | GET    | /user/get-products | Retrieve all products. |
-| PATCH  | /user/buy | Update the inventory. |
 | POST   | /user/register | Create a new user. |
 | POST   | /user/login | Sign in user. |
+| PATCH  | /user/buy | Update the inventory. |
+
+#### Admin
+| Method | Endpoint | Description |
+| ------ | -------- | ----------- |
 | POST   | /admin/add-new-product | Create new product. |
 | DELETE | /admin/delete-product/:id | Delete product by id. |
 
