@@ -6,6 +6,10 @@ services:
     depends_on:
       - database
     restart: always
+    environment:
+      - MONGO_CONNECTION_URI=mongodb://database:27017/ecommerce
+      - PORT=3001
+      - TOKEN_SECRET=auhsd9a7d7221k9k1s901ks9wks9assamara
 
   database:
     image: mongo
