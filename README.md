@@ -37,7 +37,7 @@ The server will now be running on "http://localhost:3001"
 ### Built with
 * TypeScript
 * NodeJS
- * Express
+  * Express
 * MongoDB
 * Docker
 
