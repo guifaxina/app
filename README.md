@@ -1,7 +1,7 @@
 # Arketfy Server Side
 This project is a backend service that provides a RESTful API for an e-commerce based application.
 
-The API allow users to create, remove and add products stored in MongoDB. Users are divided in two different categories: Admins and Customers. The API also includes authentication and authorization mechanisms to ensure that only authorized users can access and manipulate the data.
+The API allow users to create and remove and add products stored in MongoDB. Users are divided in two different categories: Admins and Customers. The API also includes authentication and authorization mechanisms to ensure that only authorized users can access and manipulate the data.
 
 # Installation Guide
 
